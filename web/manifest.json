@@ -1,11 +1,11 @@
 {
-    "name": "parkme_mobile",
-    "short_name": "parkme_mobile",
+    "name": "ParkMe Smart City Parking",
+    "short_name": "ParkMe",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#090D16",
+    "theme_color": "#2563EB",
+    "description": "Smart urban parking reservation and real-time telemetry platform.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
