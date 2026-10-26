@@ -44,7 +44,7 @@ class SpaceDetailsSheet extends StatelessWidget {
                   height: 140,
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
+                  errorBuilder: (context, error, stackTrace) => Container(
                     height: 140,
                     color: AppTheme.surfaceLight,
                     child: const Icon(Icons.local_parking_rounded, size: 48, color: AppTheme.textMuted),
@@ -60,7 +60,7 @@ class SpaceDetailsSheet extends StatelessWidget {
                     color: space.isAvailable ? AppTheme.accent : AppTheme.danger,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 6),
+                      BoxShadow(color: Colors.black.withValues(alpha: 0.3), blurRadius: 6),
                     ],
                   ),
                   child: Text(
@@ -75,7 +75,7 @@ class SpaceDetailsSheet extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
-                    color: AppTheme.background.withOpacity(0.9),
+                    color: AppTheme.background.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(

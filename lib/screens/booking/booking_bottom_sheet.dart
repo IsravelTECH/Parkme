@@ -163,9 +163,9 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppTheme.primary.withOpacity(0.15),
+                    color: AppTheme.primary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppTheme.primary.withOpacity(0.4)),
+                    border: Border.all(color: AppTheme.primary.withValues(alpha: 0.4)),
                   ),
                   child: Text(
                     '₹${widget.space.pricePerHour.toStringAsFixed(0)}/hr',
@@ -181,9 +181,9 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                 margin: const EdgeInsets.only(bottom: 14),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.danger.withOpacity(0.15),
+                  color: AppTheme.danger.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppTheme.danger.withOpacity(0.4)),
+                  border: Border.all(color: AppTheme.danger.withValues(alpha: 0.4)),
                 ),
                 child: Text(
                   _errorMessage!,

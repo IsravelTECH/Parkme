@@ -64,6 +64,7 @@ class _HostDashboardScreenState extends State<HostDashboardScreen> {
         await ApiService.deleteParkingSpace(id);
         _fetchHostData();
       } catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
       }
     }

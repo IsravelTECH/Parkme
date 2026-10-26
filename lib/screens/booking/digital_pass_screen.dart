@@ -42,7 +42,7 @@ class DigitalPassScreen extends StatelessWidget {
                   border: Border.all(color: AppTheme.border),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha: 0.5),
                       blurRadius: 24,
                       offset: const Offset(0, 10),
                     ),
@@ -66,9 +66,9 @@ class DigitalPassScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                             decoration: BoxDecoration(
-                              color: AppTheme.accent.withOpacity(0.2),
+                              color: AppTheme.accent.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: AppTheme.accent.withOpacity(0.5)),
+                              border: Border.all(color: AppTheme.accent.withValues(alpha: 0.5)),
                             ),
                             child: const Row(
                               mainAxisSize: MainAxisSize.min,
@@ -103,7 +103,7 @@ class DigitalPassScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                             ),
                           ),
                         ],

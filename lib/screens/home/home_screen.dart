@@ -670,7 +670,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               scrollDirection: Axis.horizontal,
               itemCount: _featuredSpaces.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 14),
+              separatorBuilder: (context, index) => const SizedBox(width: 14),
               itemBuilder: (ctx, idx) {
                 final space = _featuredSpaces[idx];
                 return _buildSpaceCard(space);
@@ -713,7 +713,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 120,
                         width: 250,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _buildFallbackThumbnail(),
+                        errorBuilder: (context, error, stackTrace) => _buildFallbackThumbnail(),
                       )
                     : _buildFallbackThumbnail(),
               ),

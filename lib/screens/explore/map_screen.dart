@@ -146,7 +146,7 @@ class MapScreenState extends State<MapScreen> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.35),
+                              color: Colors.black.withValues(alpha: 0.35),
                               blurRadius: 8,
                               offset: const Offset(0, 3),
                             ),
@@ -200,12 +200,12 @@ class MapScreenState extends State<MapScreen> {
                   // Search Box
                   Container(
                     decoration: BoxDecoration(
-                      color: AppTheme.surface.withOpacity(0.95),
+                      color: AppTheme.surface.withValues(alpha: 0.95),
                       borderRadius: BorderRadius.circular(18),
                       border: Border.all(color: AppTheme.border),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
@@ -283,7 +283,7 @@ class MapScreenState extends State<MapScreen> {
               children: [
                 FloatingActionButton.small(
                   heroTag: 'recenter_btn',
-                  backgroundColor: AppTheme.surface.withOpacity(0.95),
+                  backgroundColor: AppTheme.surface.withValues(alpha: 0.95),
                   foregroundColor: Colors.white,
                   onPressed: () => _mapController.move(_chennaiCenter, 13.0),
                   child: const Icon(Icons.my_location_rounded, size: 20),
@@ -291,7 +291,7 @@ class MapScreenState extends State<MapScreen> {
                 const SizedBox(height: 8),
                 FloatingActionButton.small(
                   heroTag: 'refresh_btn',
-                  backgroundColor: AppTheme.surface.withOpacity(0.95),
+                  backgroundColor: AppTheme.surface.withValues(alpha: 0.95),
                   foregroundColor: Colors.white,
                   onPressed: _fetchSpaces,
                   child: const Icon(Icons.refresh_rounded, size: 20),
@@ -309,12 +309,12 @@ class MapScreenState extends State<MapScreen> {
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AppTheme.surface.withOpacity(0.95),
+                  color: AppTheme.surface.withValues(alpha: 0.95),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: AppTheme.border),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.4),
+                      color: Colors.black.withValues(alpha: 0.4),
                       blurRadius: 16,
                       offset: const Offset(0, 6),
                     ),
@@ -329,7 +329,7 @@ class MapScreenState extends State<MapScreen> {
                         width: 64,
                         height: 64,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
+                        errorBuilder: (context, error, stackTrace) => Container(
                           width: 64,
                           height: 64,
                           color: AppTheme.surfaceLight,
@@ -389,7 +389,7 @@ class MapScreenState extends State<MapScreen> {
         label: Text(label),
         selected: isSelected,
         onSelected: (_) => setState(() => _activeFilter = id),
-        backgroundColor: AppTheme.surface.withOpacity(0.9),
+        backgroundColor: AppTheme.surface.withValues(alpha: 0.9),
         selectedColor: AppTheme.primary,
         checkmarkColor: Colors.white,
         side: BorderSide(color: isSelected ? AppTheme.primary : AppTheme.border),

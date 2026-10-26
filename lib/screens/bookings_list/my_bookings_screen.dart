@@ -71,11 +71,13 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
     if (confirmed == true) {
       try {
         await ApiService.cancelBooking(bookingId);
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Reservation cancelled successfully')),
         );
         _fetchDashboard();
       } catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.toString().replaceAll('Exception: ', ''))),
         );
@@ -207,9 +209,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
       decoration: BoxDecoration(
         color: AppTheme.surface,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppTheme.primary.withOpacity(0.5)),
+        border: Border.all(color: AppTheme.primary.withValues(alpha: 0.5)),
         boxShadow: [
-          BoxShadow(color: AppTheme.primary.withOpacity(0.15), blurRadius: 16, offset: const Offset(0, 4)),
+          BoxShadow(color: AppTheme.primary.withValues(alpha: 0.15), blurRadius: 16, offset: const Offset(0, 4)),
         ],
       ),
       child: Column(
@@ -221,9 +223,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: AppTheme.accent.withOpacity(0.2),
+                  color: AppTheme.accent.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppTheme.accent.withOpacity(0.5)),
+                  border: Border.all(color: AppTheme.accent.withValues(alpha: 0.5)),
                 ),
                 child: const Text('ACTIVE PASS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: AppTheme.accent)),
               ),
@@ -314,7 +316,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: h.isCancelled ? AppTheme.danger.withOpacity(0.2) : AppTheme.accent.withOpacity(0.2),
+                  color: h.isCancelled ? AppTheme.danger.withValues(alpha: 0.2) : AppTheme.accent.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(

@@ -120,9 +120,9 @@ class _AddSpaceScreenState extends State<AddSpaceScreen> {
                   margin: const EdgeInsets.only(bottom: 16),
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: AppTheme.danger.withOpacity(0.15),
+                    color: AppTheme.danger.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppTheme.danger.withOpacity(0.4)),
+                    border: Border.all(color: AppTheme.danger.withValues(alpha: 0.4)),
                   ),
                   child: Text(_errorMessage!, style: const TextStyle(color: Colors.white, fontSize: 12)),
                 ),
