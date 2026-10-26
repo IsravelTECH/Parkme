@@ -39,8 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (_) => const HomeNav()),
       );
     } catch (e) {
+      String msg = e.toString().replaceAll('Exception: ', '');
+      if (msg.contains('SocketException') || msg.contains('Failed host lookup') || msg.contains('errno = 7')) {
+        msg = 'Unable to connect to server. Please check your internet connection or try again in a few moments.';
+      }
       setState(() {
-        _errorMessage = e.toString().replaceAll('Exception: ', '');
+        _errorMessage = msg;
       });
     } finally {
       if (mounted) setState(() => _isLoading = false);
