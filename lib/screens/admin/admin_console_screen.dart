@@ -19,7 +19,7 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
   List<dynamic> _bookings = [];
   List<dynamic> _users = [];
 
-  String _activeTab = 'overview';
+  String _activeTab = 'spaces';
 
   @override
   void initState() {
@@ -169,7 +169,6 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildTabChip('overview', 'Operations Overview', Icons.dashboard_rounded),
                         _buildTabChip('spaces', 'Facilities ($totalSpaces)', Icons.local_parking_rounded),
                         _buildTabChip('bookings', 'Bookings Ledger (${_bookings.length})', Icons.receipt_long_rounded),
                         _buildTabChip('users', 'User Directory ($totalUsers)', Icons.group_rounded),
@@ -179,7 +178,6 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
                   const SizedBox(height: 16),
 
                   // Tab Content
-                  if (_activeTab == 'overview') _buildOverviewTab(),
                   if (_activeTab == 'spaces') _buildSpacesTab(),
                   if (_activeTab == 'bookings') _buildBookingsTab(),
                   if (_activeTab == 'users') _buildUsersTab(),
@@ -270,35 +268,10 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
     );
   }
 
-  Widget _buildOverviewTab() {
+  Widget _buildSpacesTab() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: AppTheme.border),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'SYSTEM HEALTH & TELEMETRY',
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: AppTheme.textPrimary),
-              ),
-              const SizedBox(height: 12),
-              _buildTelemetryRow('Database Node', 'MongoDB Atlas Connected', Icons.check_circle_rounded, AppTheme.accent),
-              const Divider(height: 18),
-              _buildTelemetryRow('Backend Engine', 'FastAPI v2.0 (IST Timezone)', Icons.check_circle_rounded, AppTheme.accent),
-              const Divider(height: 18),
-              _buildTelemetryRow('Parking Inventory', '${_spaces.length} Chennai Hubs Mapped', Icons.local_parking_rounded, AppTheme.primary),
-            ],
-          ),
-        ),
-        const SizedBox(height: 14),
-
         ElevatedButton.icon(
           onPressed: () async {
             final added = await Navigator.push<bool>(
@@ -310,41 +283,11 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
           icon: const Icon(Icons.add_business_rounded),
           label: const Text('List New Facility to Network', style: TextStyle(fontWeight: FontWeight.w800)),
         ),
-      ],
-    );
-  }
-
-  Widget _buildTelemetryRow(String title, String status, IconData icon, Color color) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary, fontWeight: FontWeight.w600),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 14, color: color),
-            const SizedBox(width: 4),
-            Text(status, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: color)),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSpacesTab() {
-    if (_spaces.isEmpty) {
-      return const Center(child: Padding(padding: EdgeInsets.all(24), child: Text('No spaces available')));
-    }
-
-    return Column(
-      children: _spaces.map((s) {
+        const SizedBox(height: 14),
+        if (_spaces.isEmpty)
+          const Center(child: Padding(padding: EdgeInsets.all(24), child: Text('No spaces available')))
+        else
+          ..._spaces.map((s) {
         final name = s['name'] ?? 'Facility';
         final address = s['landmark'] ?? s['address'] ?? 'Chennai';
         final tariff = s['price_per_hour'] ?? s['price'] ?? 40;
@@ -404,7 +347,8 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
             ],
           ),
         );
-      }).toList(),
+      }),
+      ],
     );
   }
 
