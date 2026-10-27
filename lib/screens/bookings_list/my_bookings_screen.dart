@@ -52,12 +52,12 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppTheme.surface,
-        title: const Text('Cancel Reservation?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text('Cancel Reservation?', style: TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.bold)),
         content: const Text('The slot will be released back to the parking lot.', style: TextStyle(color: AppTheme.textSecondary)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Keep Booking', style: TextStyle(color: AppTheme.textMuted)),
+            child: const Text('Keep Booking', style: TextStyle(color: AppTheme.textSecondary)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppTheme.danger),
@@ -129,7 +129,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                       const SizedBox(width: 8),
                       const Text(
                         'ACTIVE PASSES',
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 0.5),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: AppTheme.textPrimary, letterSpacing: 0.5),
                       ),
                     ],
                   ),
@@ -145,16 +145,16 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                       ),
                       child: const Column(
                         children: [
-                          Icon(Icons.confirmation_number_outlined, size: 40, color: AppTheme.textMuted),
+                          Icon(Icons.confirmation_number_outlined, size: 40, color: AppTheme.textSecondary),
                           SizedBox(height: 8),
                           Text(
                             'No Active Parking Passes',
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
                           ),
                           SizedBox(height: 4),
                           Text(
                             'Search the map to reserve guaranteed spots',
-                            style: TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                            style: TextStyle(fontSize: 12, color: AppTheme.textSecondary),
                           ),
                         ],
                       ),
@@ -181,7 +181,8 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
     );
   }
 
-  Widget _buildKpiCard(String title, String value, {Color color = Colors.white}) {
+  Widget _buildKpiCard(String title, String value, {Color? color}) {
+    final textColor = color ?? AppTheme.textPrimary;
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(12),
@@ -193,9 +194,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppTheme.textMuted)),
+            Text(title, style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppTheme.textSecondary)),
             const SizedBox(height: 4),
-            Text(value, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: color)),
+            Text(value, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: textColor)),
           ],
         ),
       ),
@@ -211,7 +212,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
         borderRadius: BorderRadius.circular(22),
         border: Border.all(color: AppTheme.primary.withValues(alpha: 0.5)),
         boxShadow: [
-          BoxShadow(color: AppTheme.primary.withValues(alpha: 0.15), blurRadius: 16, offset: const Offset(0, 4)),
+          BoxShadow(color: AppTheme.primary.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 4)),
         ],
       ),
       child: Column(
@@ -223,9 +224,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: AppTheme.accent.withValues(alpha: 0.2),
+                  color: AppTheme.accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppTheme.accent.withValues(alpha: 0.5)),
+                  border: Border.all(color: AppTheme.accent.withValues(alpha: 0.4)),
                 ),
                 child: const Text('ACTIVE PASS', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w900, color: AppTheme.accent)),
               ),
@@ -237,9 +238,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Text(booking.parkingName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white)),
+          Text(booking.parkingName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: AppTheme.textPrimary)),
           const SizedBox(height: 2),
-          Text(booking.address, style: const TextStyle(fontSize: 12, color: AppTheme.textMuted)),
+          Text(booking.address, style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(10),
@@ -253,15 +254,15 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('PLATE NUMBER', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: AppTheme.textMuted)),
-                    Text(booking.vehicleNumber, style: const TextStyle(fontWeight: FontWeight.w800, color: Colors.white, fontFamily: 'monospace')),
+                    const Text('PLATE NUMBER', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: AppTheme.textSecondary)),
+                    Text(booking.vehicleNumber, style: const TextStyle(fontWeight: FontWeight.w800, color: AppTheme.textPrimary, fontFamily: 'monospace')),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text('WINDOW', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: AppTheme.textMuted)),
-                    Text(booking.timeRange, style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 11)),
+                    const Text('WINDOW', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: AppTheme.textSecondary)),
+                    Text(booking.timeRange, style: const TextStyle(fontWeight: FontWeight.w700, color: AppTheme.textPrimary, fontSize: 11)),
                   ],
                 ),
               ],
@@ -302,16 +303,16 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(h.parkingName, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: Colors.white)),
+                Text(h.parkingName, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppTheme.textPrimary)),
                 const SizedBox(height: 2),
-                Text('${h.vehicleNumber} • ${h.timeRange}', style: const TextStyle(fontSize: 11, color: AppTheme.textMuted)),
+                Text('${h.vehicleNumber} • ${h.timeRange}', style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary)),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text('₹${h.totalPrice.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14, color: Colors.white)),
+              Text('₹${h.totalPrice.toStringAsFixed(0)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14, color: AppTheme.textPrimary)),
               const SizedBox(height: 2),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

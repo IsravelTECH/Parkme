@@ -148,14 +148,14 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                     children: [
                       Text(
                         widget.space.name,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Colors.white),
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: AppTheme.textPrimary),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 2),
                       Text(
                         widget.space.landmark.isNotEmpty ? widget.space.landmark : widget.space.city,
-                        style: const TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                        style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary),
                       ),
                     ],
                   ),
@@ -163,9 +163,9 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppTheme.primary.withValues(alpha: 0.15),
+                    color: AppTheme.primary.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppTheme.primary.withValues(alpha: 0.4)),
+                    border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
                   ),
                   child: Text(
                     '₹${widget.space.pricePerHour.toStringAsFixed(0)}/hr',
@@ -181,13 +181,13 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                 margin: const EdgeInsets.only(bottom: 14),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.danger.withValues(alpha: 0.15),
+                  color: AppTheme.danger.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppTheme.danger.withValues(alpha: 0.4)),
+                  border: Border.all(color: AppTheme.danger.withValues(alpha: 0.3)),
                 ),
                 child: Text(
                   _errorMessage!,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: const TextStyle(color: AppTheme.danger, fontSize: 12, fontWeight: FontWeight.w700),
                 ),
               ),
 
@@ -197,9 +197,9 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
             TextField(
               controller: _vehicleController,
               textCapitalization: TextCapitalization.characters,
-              style: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'monospace', fontWeight: FontWeight.w700),
+              style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14, fontFamily: 'monospace', fontWeight: FontWeight.w700),
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.directions_car_rounded, color: AppTheme.textMuted, size: 20),
+                prefixIcon: Icon(Icons.directions_car_rounded, color: AppTheme.textSecondary, size: 20),
                 hintText: 'e.g. TN 09 AB 1234',
               ),
             ),
@@ -230,11 +230,11 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('DATE', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, color: AppTheme.textMuted)),
+                          const Text('DATE', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, color: AppTheme.textSecondary)),
                           const SizedBox(height: 2),
                           Text(
                             DateFormat('MMM dd, yyyy').format(_selectedDate),
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Colors.white),
+                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.textPrimary),
                           ),
                         ],
                       ),
@@ -262,11 +262,11 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('START TIME', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, color: AppTheme.textMuted)),
+                          const Text('START TIME', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, color: AppTheme.textSecondary)),
                           const SizedBox(height: 2),
                           Text(
                             _formatTime(_startTime),
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Colors.white),
+                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.textPrimary),
                           ),
                         ],
                       ),
@@ -318,7 +318,7 @@ class _BookingBottomSheetState extends State<BookingBottomSheet> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: AppTheme.background,
+                color: AppTheme.surfaceLight,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppTheme.border),
               ),

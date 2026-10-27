@@ -65,15 +65,15 @@ class _HomeNavState extends State<HomeNav> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: AppTheme.surface.withValues(alpha: 0.95),
+          color: Colors.white,
           border: const Border(
-            top: BorderSide(color: AppTheme.border, width: 0.8),
+            top: BorderSide(color: AppTheme.border, width: 1.0),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.4),
-              blurRadius: 16,
-              offset: const Offset(0, -4),
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 12,
+              offset: const Offset(0, -3),
             ),
           ],
         ),
@@ -105,7 +105,7 @@ class _HomeNavState extends State<HomeNav> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primary.withValues(alpha: 0.15) : Colors.transparent,
+          color: isSelected ? AppTheme.primary.withValues(alpha: 0.10) : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -114,7 +114,7 @@ class _HomeNavState extends State<HomeNav> {
             Icon(
               icon,
               size: 20,
-              color: isSelected ? AppTheme.primary : AppTheme.textMuted,
+              color: isSelected ? AppTheme.primary : AppTheme.textSecondary,
             ),
             const SizedBox(height: 2),
             Text(
@@ -122,7 +122,7 @@ class _HomeNavState extends State<HomeNav> {
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
-                color: isSelected ? AppTheme.primary : AppTheme.textMuted,
+                color: isSelected ? AppTheme.primary : AppTheme.textSecondary,
               ),
             ),
           ],

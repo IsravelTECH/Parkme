@@ -8,23 +8,23 @@ class AppTheme {
   static const Color warning = Color(0xFFF59E0B); // Amber
   static const Color danger = Color(0xFFEF4444); // Crimson
 
-  // Obsidian Dark Palette
-  static const Color background = Color(0xFF090D16);
-  static const Color surface = Color(0xFF0F172A);
-  static const Color surfaceLight = Color(0xFF1E293B);
-  static const Color border = Color(0xFF334155);
+  // Clean Luxury Light Palette
+  static const Color background = Color(0xFFF8FAFC); // Slate 50
+  static const Color surface = Color(0xFFFFFFFF); // Pure White
+  static const Color surfaceLight = Color(0xFFF1F5F9); // Slate 100
+  static const Color border = Color(0xFFE2E8F0); // Slate 200
 
-  // Text Colors
-  static const Color textPrimary = Color(0xFFF8FAFC);
-  static const Color textSecondary = Color(0xFF94A3B8);
-  static const Color textMuted = Color(0xFF64748B);
+  // High-Contrast Light Theme Text Colors
+  static const Color textPrimary = Color(0xFF0F172A); // Slate 900
+  static const Color textSecondary = Color(0xFF475569); // Slate 600
+  static const Color textMuted = Color(0xFF94A3B8); // Slate 400
 
-  static ThemeData get darkTheme {
+  static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       scaffoldBackgroundColor: background,
-      colorScheme: const ColorScheme.dark(
+      colorScheme: const ColorScheme.light(
         primary: primary,
         secondary: accent,
         surface: surface,
@@ -41,7 +41,7 @@ class AppTheme {
         ),
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: background,
+        backgroundColor: surface,
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
@@ -75,7 +75,7 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: primary,
           foregroundColor: Colors.white,
-          elevation: 2,
+          elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -88,4 +88,7 @@ class AppTheme {
       ),
     );
   }
+
+  // Alias so references to darkTheme resolve cleanly to the modern lightTheme
+  static ThemeData get darkTheme => lightTheme;
 }

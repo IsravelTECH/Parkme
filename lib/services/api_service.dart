@@ -220,14 +220,136 @@ class ApiService {
     }
   }
 
+  // Host: Update Space
+  static Future<void> updateParkingSpace({
+    required String spaceId,
+    required String name,
+    required String city,
+    required String landmark,
+    required String address,
+    required int slots,
+    required double pricePerHour,
+    required List<String> days,
+    required List<String> features,
+    String? imageUrl,
+    double? lat,
+    double? lng,
+  }) async {
+    final token = await StorageService.getToken();
+    final uri = Uri.parse('$baseUrl/update-parking/$spaceId');
+    final request = http.MultipartRequest('PUT', uri);
+    if (token != null && token.isNotEmpty) {
+      request.headers['Authorization'] = 'Bearer $token';
+    }
+
+    request.fields['name'] = name;
+    request.fields['city'] = city;
+    request.fields['landmark'] = landmark;
+    request.fields['address'] = address;
+    request.fields['slots'] = slots.toString();
+    request.fields['price_per_hour'] = pricePerHour.toString();
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      request.fields['image_url'] = imageUrl;
+    }
+    if (lat != null && lng != null) {
+      request.fields['lat'] = lat.toString();
+      request.fields['lng'] = lng.toString();
+    }
+
+    for (final day in days) {
+      request.files.add(http.MultipartFile.fromString('days', day));
+    }
+    for (final feature in features) {
+      request.files.add(http.MultipartFile.fromString('features', feature));
+    }
+
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    if (response.statusCode != 200) {
+      final data = jsonDecode(response.body);
+      throw Exception(data['detail'] ?? data['error'] ?? 'Failed to update space');
+    }
+  }
+
+  // Admin: Get Executive Dashboard Stats
+  static Future<Map<String, dynamic>> getAdminDashboardStats() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/admin-dashboard'),
+      headers: await _getHeaders(requireAuth: true),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load admin stats');
+    }
+  }
+
+  // Admin: Get All Platform Spaces
+  static Future<List<dynamic>> getAdminSpaces() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/admin/spaces'),
+      headers: await _getHeaders(requireAuth: true),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['spaces'] ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  // Admin: Get All Bookings
+  static Future<List<dynamic>> getAdminBookings() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/admin/bookings'),
+      headers: await _getHeaders(requireAuth: true),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['bookings'] ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  // Admin: Get All Registered Users
+  static Future<List<dynamic>> getAdminUsers() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/admin/users'),
+      headers: await _getHeaders(requireAuth: true),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['users'] ?? [];
+    } else {
+      return [];
+    }
+  }
+
   // Form image URL
   static String formatImageUrl(String? path) {
-    if (path == null || path.isEmpty) {
-      return 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=600&q=80';
+    const defaultPlaceholder =
+        'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=600&q=80';
+    if (path == null || path.trim().isEmpty) {
+      return defaultPlaceholder;
     }
-    if (path.startsWith('http://') || path.startsWith('https://')) {
-      return path;
+    final trimmed = path.trim();
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      // If pointing to render uploads (which are ephemeral), return fallback
+      if (trimmed.contains('onrender.com/uploads')) {
+        return defaultPlaceholder;
+      }
+      return trimmed;
     }
-    return '$baseUrl/$path';
+    // If relative upload path from ephemeral server, return fallback
+    if (trimmed.startsWith('uploads/')) {
+      return defaultPlaceholder;
+    }
+    return '$baseUrl/$trimmed';
   }
 }

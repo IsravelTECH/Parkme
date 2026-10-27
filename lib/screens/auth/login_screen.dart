@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
-                      color: Colors.white,
+                      color: AppTheme.textPrimary,
                       letterSpacing: -0.5,
                     ),
                   ),
@@ -181,11 +181,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 children: [
                                   Text(
                                     '🚗 Driver Demo',
-                                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
                                   ),
                                   Text(
                                     'saipraasad@gmail.com',
-                                    style: TextStyle(fontSize: 9, color: AppTheme.textMuted),
+                                    style: TextStyle(fontSize: 9, color: AppTheme.textSecondary),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
@@ -210,11 +210,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 children: [
                                   Text(
                                     '👑 Admin Demo',
-                                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.textPrimary),
                                   ),
                                   Text(
                                     'isravel@gmail.com',
-                                    style: TextStyle(fontSize: 9, color: AppTheme.textMuted),
+                                    style: TextStyle(fontSize: 9, color: AppTheme.textSecondary),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
@@ -235,9 +235,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: const EdgeInsets.only(bottom: 16),
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: AppTheme.danger.withValues(alpha: 0.15),
+                    color: AppTheme.danger.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: AppTheme.danger.withValues(alpha: 0.5)),
+                    border: Border.all(color: AppTheme.danger.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
@@ -246,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                         child: Text(
                           _errorMessage!,
-                          style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+                          style: const TextStyle(color: AppTheme.danger, fontSize: 12, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],
@@ -262,9 +262,9 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14),
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.mail_outline_rounded, color: AppTheme.textMuted, size: 20),
+                  prefixIcon: Icon(Icons.mail_outline_rounded, color: AppTheme.textSecondary, size: 20),
                   hintText: 'driver@example.com',
                 ),
               ),
@@ -279,9 +279,9 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14),
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock_outline_rounded, color: AppTheme.textMuted, size: 20),
+                  prefixIcon: Icon(Icons.lock_outline_rounded, color: AppTheme.textSecondary, size: 20),
                   hintText: '••••••••',
                 ),
               ),

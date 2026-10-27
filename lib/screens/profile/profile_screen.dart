@@ -3,6 +3,7 @@ import '../../core/theme.dart';
 import '../../core/storage.dart';
 import '../../models/user.dart';
 import '../auth/login_screen.dart';
+import '../admin/admin_console_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -102,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Text(
                           _user?.name ?? 'Driver Account',
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Colors.white),
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppTheme.textPrimary),
                         ),
                         const SizedBox(height: 4),
                         Container(
@@ -122,6 +123,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
+            const SizedBox(height: 16),
+
+            // Platform Admin Command Console Entry
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AdminConsoleScreen()),
+                );
+              },
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: (_user?.role == 'owner' || _user?.role == 'admin')
+                        ? AppTheme.primary
+                        : AppTheme.border,
+                    width: 1.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.primary.withValues(alpha: 0.08),
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: AppTheme.primary.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: const Icon(Icons.shield_rounded, color: AppTheme.primary, size: 22),
+                    ),
+                    const SizedBox(width: 14),
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Platform Admin Console',
+                                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: AppTheme.textPrimary),
+                              ),
+                              SizedBox(width: 6),
+                              Icon(Icons.verified_rounded, size: 14, color: AppTheme.primary),
+                            ],
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            'Telemetry, 30 Chennai hubs & live bookings',
+                            style: TextStyle(fontSize: 11, color: AppTheme.textSecondary),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppTheme.primary),
+                  ],
+                ),
+              ),
+            ),
             const SizedBox(height: 24),
 
             // Vehicle Plate Number Preference
@@ -133,9 +202,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             TextField(
               controller: _vehicleController,
               textCapitalization: TextCapitalization.characters,
-              style: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'monospace'),
+              style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14, fontFamily: 'monospace'),
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.directions_car_rounded, color: AppTheme.textMuted, size: 20),
+                prefixIcon: Icon(Icons.directions_car_rounded, color: AppTheme.textSecondary, size: 20),
                 hintText: 'e.g. TN 09 AB 1234',
               ),
             ),

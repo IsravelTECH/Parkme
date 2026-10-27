@@ -6,17 +6,18 @@ import 'core/theme.dart';
 import 'models/user.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/home_nav.dart';
+import 'screens/splash/animated_parking_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Set dark system navigation bar on Android
+  // Set clean light system navigation & status bar on Android
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: AppTheme.background,
-      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
 
@@ -36,8 +37,12 @@ class ParkMeApp extends StatelessWidget {
     return MaterialApp(
       title: 'ParkMe',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      home: initialUser != null ? const HomeNav() : const LoginScreen(),
+      theme: AppTheme.lightTheme,
+      home: AnimatedParkingSplash(initialUser: initialUser),
+      routes: {
+        '/home': (_) => const HomeNav(),
+        '/login': (_) => const LoginScreen(),
+      },
     );
   }
 }

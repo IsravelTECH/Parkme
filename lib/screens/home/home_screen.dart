@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../core/storage.dart';
 import '../../core/theme.dart';
 import '../../models/parking_space.dart';
+import '../../models/user.dart';
 import '../../services/api_service.dart';
+import '../../widgets/brand_logo.dart';
 import '../booking/booking_bottom_sheet.dart';
+import 'widgets/parking_3d_viewport.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function(int tabIndex, {String? searchQuery, ParkingSpace? selectedSpace})? onNavigateTab;
@@ -21,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedVehicle = 'Car';
   bool _isLoading = true;
   List<ParkingSpace> _featuredSpaces = [];
+  UserSession? _user;
 
   final List<String> _popularHubs = [
     'Anna Nagar',
@@ -34,7 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _checkUser();
     _fetchFeaturedSpaces();
+  }
+
+  Future<void> _checkUser() async {
+    final user = await StorageService.getUser();
+    if (mounted) setState(() => _user = user);
   }
 
   @override
@@ -95,6 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildSearchCapsule(),
                 _buildPopularHubs(),
                 const SizedBox(height: 24),
+                _build3DViewport(),
+                const SizedBox(height: 24),
                 _buildSocialProofStrip(),
                 const SizedBox(height: 32),
                 _buildFeaturedSection(),
@@ -104,9 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildHostMonetizeBanner(),
                 const SizedBox(height: 28),
                 _buildCtaBanner(),
-                const SizedBox(height: 36),
+                const SizedBox(height: 28),
                 _buildFooter(),
-                const SizedBox(height: 80), // Clearance for bottom nav
               ],
             ),
           ),
@@ -124,35 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Row(
             children: [
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppTheme.primary, AppTheme.accent],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.primary.withValues(alpha: 0.4),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Text(
-                    'P',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-              ),
+              const ParkMeLogoBadge(size: 38),
               const SizedBox(width: 10),
               RichText(
                 text: const TextSpan(
@@ -160,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     TextSpan(
                       text: 'Park',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppTheme.textPrimary,
                         fontWeight: FontWeight.w900,
                         fontSize: 22,
                         letterSpacing: -0.5,
@@ -189,6 +173,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppTheme.surface,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: AppTheme.border),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
@@ -200,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: AppTheme.textPrimary,
                     ),
                   ),
                 ],
@@ -267,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 34,
               fontWeight: FontWeight.w900,
-              color: Colors.white,
+              color: AppTheme.textPrimary,
               height: 1.15,
               letterSpacing: -1,
             ),
@@ -279,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
             'Reserve premium parking spaces in seconds. Real-time slot telemetry, in-app turn-by-turn navigation, and encrypted touchless gate access.',
             style: TextStyle(
               fontSize: 14,
-              color: AppTheme.textMuted,
+              color: AppTheme.textSecondary,
               height: 1.45,
             ),
           ),
@@ -300,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
           border: Border.all(color: AppTheme.border),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.4),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 18,
               offset: const Offset(0, 6),
             ),
@@ -312,7 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
               decoration: BoxDecoration(
-                color: AppTheme.background,
+                color: AppTheme.surfaceLight,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppTheme.border),
               ),
@@ -324,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextField(
                       controller: _searchController,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: AppTheme.textPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -352,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppTheme.background,
+                      color: AppTheme.surfaceLight,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: AppTheme.border),
                     ),
@@ -362,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         dropdownColor: AppTheme.surface,
                         icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppTheme.textMuted),
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: AppTheme.textPrimary,
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
                         ),
@@ -508,6 +499,56 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // 4b. 3D Smart Parking Animation Viewport
+  Widget _build3DViewport() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppTheme.primary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.view_in_ar_rounded, size: 12, color: AppTheme.primary),
+                    SizedBox(width: 6),
+                    Text(
+                      'INTERACTIVE 3D SMART BAY',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        color: AppTheme.primary,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Parking3DViewport(
+          onReserveTap: () {
+            if (_featuredSpaces.isNotEmpty) {
+              _openBooking(_featuredSpaces.first);
+            } else {
+              widget.onNavigateTab?.call(1);
+            }
+          },
+        ),
+      ],
+    );
+  }
+
   // 5. Social Proof Strip
   Widget _buildSocialProofStrip() {
     return Container(
@@ -547,7 +588,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w900,
-                color: Colors.white,
+                color: AppTheme.textPrimary,
               ),
             ),
           ],
@@ -558,7 +599,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(
             fontSize: 9,
             fontWeight: FontWeight.w600,
-            color: AppTheme.textMuted,
+            color: AppTheme.textSecondary,
           ),
         ),
       ],
@@ -614,7 +655,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
-                      color: Colors.white,
+                      color: AppTheme.textPrimary,
                       letterSpacing: -0.5,
                     ),
                   ),
@@ -691,8 +732,8 @@ class _HomeScreenState extends State<HomeScreen> {
         border: Border.all(color: AppTheme.border),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.3),
-            blurRadius: 10,
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 12,
             offset: const Offset(0, 4),
           ),
         ],
@@ -705,17 +746,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                child: space.image != null && space.image!.isNotEmpty
-                    ? Image.network(
-                        space.image!.startsWith('http')
-                            ? space.image!
-                            : '${ApiService.baseUrl}/${space.image!}',
-                        height: 120,
-                        width: 250,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => _buildFallbackThumbnail(),
-                      )
-                    : _buildFallbackThumbnail(),
+                child: Image.network(
+                  ApiService.formatImageUrl(space.image),
+                  height: 120,
+                  width: 250,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => _buildFallbackThumbnail(),
+                ),
               ),
               // Slot Status Pill
               Positioned(
@@ -762,7 +799,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.8),
+                    color: Colors.black.withValues(alpha: 0.75),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.white24),
                   ),
@@ -792,13 +829,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
-                    color: Colors.white,
+                    color: AppTheme.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Row(
                   children: [
-                    const Icon(Icons.location_on_outlined, size: 12, color: AppTheme.textMuted),
+                    const Icon(Icons.location_on_outlined, size: 12, color: AppTheme.textSecondary),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
@@ -807,7 +844,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 11,
-                          color: AppTheme.textMuted,
+                          color: AppTheme.textSecondary,
                         ),
                       ),
                     ),
@@ -887,7 +924,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w900,
-              color: Colors.white,
+              color: AppTheme.textPrimary,
               letterSpacing: -0.5,
             ),
           ),
@@ -944,6 +981,13 @@ class _HomeScreenState extends State<HomeScreen> {
         color: AppTheme.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppTheme.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -966,7 +1010,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
-                    color: Colors.white,
+                    color: AppTheme.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -974,7 +1018,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   description,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: AppTheme.textMuted,
+                    color: AppTheme.textSecondary,
                     height: 1.4,
                   ),
                 ),
@@ -1050,7 +1094,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'Homeowners and property managers list spaces on ParkMe. Set hourly rates, control operating hours, and receive direct bank payouts.',
               style: TextStyle(
                 fontSize: 12,
-                color: AppTheme.textMuted,
+                color: Colors.white70,
                 height: 1.45,
               ),
             ),
@@ -1142,7 +1186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/login'),
+                    onPressed: _user != null
+                        ? () => widget.onNavigateTab?.call(2)
+                        : () => Navigator.pushNamed(context, '/login'),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.white,
                       side: const BorderSide(color: Colors.white38),
@@ -1151,9 +1197,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+                    child: Text(
+                      _user != null ? 'My Bookings' : 'Sign In',
+                      style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
                     ),
                   ),
                 ),
@@ -1168,8 +1214,11 @@ class _HomeScreenState extends State<HomeScreen> {
   // 10. Footer Section
   Widget _buildFooter() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      color: Colors.black.withValues(alpha: 0.2),
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+      decoration: const BoxDecoration(
+        color: AppTheme.surfaceLight,
+        border: Border(top: BorderSide(color: AppTheme.border)),
+      ),
       child: Column(
         children: [
           Row(
@@ -1183,7 +1232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     TextSpan(
                       text: 'Park',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppTheme.textPrimary,
                         fontWeight: FontWeight.w800,
                         fontSize: 15,
                       ),
@@ -1206,7 +1255,7 @@ class _HomeScreenState extends State<HomeScreen> {
             '© 2026 ParkMe Inc. All rights reserved.',
             style: TextStyle(
               fontSize: 10,
-              color: AppTheme.textMuted,
+              color: AppTheme.textSecondary,
             ),
           ),
         ],

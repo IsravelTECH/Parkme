@@ -75,8 +75,15 @@ class SpaceDetailsSheet extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
-                    color: AppTheme.background.withValues(alpha: 0.9),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.12),
+                        blurRadius: 6,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: Text(
                     '₹${space.pricePerHour.toStringAsFixed(0)}/hr',
@@ -91,7 +98,7 @@ class SpaceDetailsSheet extends StatelessWidget {
           // Title & Landmark
           Text(
             space.name,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Colors.white),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: AppTheme.textPrimary),
           ),
           const SizedBox(height: 4),
           Row(
@@ -101,7 +108,7 @@ class SpaceDetailsSheet extends StatelessWidget {
               Expanded(
                 child: Text(
                   space.landmark.isNotEmpty ? '${space.landmark}, ${space.city}' : space.address,
-                  style: const TextStyle(fontSize: 12, color: AppTheme.textMuted),
+                  style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

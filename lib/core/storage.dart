@@ -24,6 +24,11 @@ class StorageService {
     return UserSession(token: token, name: name, role: role);
   }
 
+  static Future<String?> getToken() async {
+    final user = await getUser();
+    return user?.token;
+  }
+
   static Future<void> clearUser() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_keyToken);

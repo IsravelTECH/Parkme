@@ -75,12 +75,12 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               const Text(
                 'Join ParkMe',
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Colors.white),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: AppTheme.textPrimary),
               ),
               const SizedBox(height: 6),
               const Text(
                 'Reserve guaranteed urban parking bays in seconds',
-                style: TextStyle(fontSize: 13, color: AppTheme.textMuted),
+                style: TextStyle(fontSize: 13, color: AppTheme.textSecondary),
               ),
               const SizedBox(height: 24),
 
@@ -89,16 +89,16 @@ class _SignupScreenState extends State<SignupScreen> {
                   margin: const EdgeInsets.only(bottom: 16),
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: AppTheme.danger.withValues(alpha: 0.15),
+                    color: AppTheme.danger.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: AppTheme.danger.withValues(alpha: 0.5)),
+                    border: Border.all(color: AppTheme.danger.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [
                       const Icon(Icons.error_outline_rounded, color: AppTheme.danger, size: 20),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: Text(_errorMessage!, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                        child: Text(_errorMessage!, style: const TextStyle(color: AppTheme.danger, fontSize: 12, fontWeight: FontWeight.w700)),
                       ),
                     ],
                   ),
@@ -109,9 +109,9 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 6),
               TextField(
                 controller: _nameController,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14),
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person_outline_rounded, color: AppTheme.textMuted, size: 20),
+                  prefixIcon: Icon(Icons.person_outline_rounded, color: AppTheme.textSecondary, size: 20),
                   hintText: 'e.g. John Doe',
                 ),
               ),
@@ -123,9 +123,9 @@ class _SignupScreenState extends State<SignupScreen> {
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14),
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.mail_outline_rounded, color: AppTheme.textMuted, size: 20),
+                  prefixIcon: Icon(Icons.mail_outline_rounded, color: AppTheme.textSecondary, size: 20),
                   hintText: 'john@example.com',
                 ),
               ),
@@ -137,9 +137,9 @@ class _SignupScreenState extends State<SignupScreen> {
               TextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14),
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.phone_outlined, color: AppTheme.textMuted, size: 20),
+                  prefixIcon: Icon(Icons.phone_outlined, color: AppTheme.textSecondary, size: 20),
                   hintText: '+91 98765 43210',
                 ),
               ),
@@ -151,9 +151,9 @@ class _SignupScreenState extends State<SignupScreen> {
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                style: const TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: AppTheme.textPrimary, fontSize: 14),
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock_outline_rounded, color: AppTheme.textMuted, size: 20),
+                  prefixIcon: Icon(Icons.lock_outline_rounded, color: AppTheme.textSecondary, size: 20),
                   hintText: '••••••••',
                 ),
               ),

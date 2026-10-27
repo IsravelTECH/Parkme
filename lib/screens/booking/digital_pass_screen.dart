@@ -42,9 +42,9 @@ class DigitalPassScreen extends StatelessWidget {
                   border: Border.all(color: AppTheme.border),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.5),
+                      color: Colors.black.withValues(alpha: 0.08),
                       blurRadius: 24,
-                      offset: const Offset(0, 10),
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),
@@ -183,14 +183,14 @@ class DigitalPassScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text('Vehicle Plate', style: TextStyle(color: AppTheme.textMuted, fontSize: 12)),
+                                    const Text('Vehicle Plate', style: TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
                                     Text(
                                       booking.vehicleNumber,
                                       style: const TextStyle(
                                         fontFamily: 'monospace',
                                         fontWeight: FontWeight.w900,
                                         fontSize: 14,
-                                        color: Colors.white,
+                                        color: AppTheme.textPrimary,
                                       ),
                                     ),
                                   ],
@@ -199,7 +199,7 @@ class DigitalPassScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text('Total Paid', style: TextStyle(color: AppTheme.textMuted, fontSize: 12)),
+                                    const Text('Total Paid', style: TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
                                     Text(
                                       '₹${booking.totalPrice.toStringAsFixed(0)}',
                                       style: const TextStyle(
@@ -214,13 +214,13 @@ class DigitalPassScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text('Reserved Window', style: TextStyle(color: AppTheme.textMuted, fontSize: 12)),
+                                    const Text('Reserved Window', style: TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
                                     Text(
                                       booking.timeRange,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 12,
-                                        color: Colors.white,
+                                        color: AppTheme.textPrimary,
                                       ),
                                     ),
                                   ],
