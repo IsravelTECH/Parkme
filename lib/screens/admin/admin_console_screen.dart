@@ -67,9 +67,15 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
       backgroundColor: AppTheme.background,
       appBar: AppBar(
         title: const Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Admin Command Console'),
-            SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                'Admin Console',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SizedBox(width: 6),
             Icon(Icons.verified_user_rounded, color: AppTheme.primary, size: 18),
           ],
         ),
@@ -235,9 +241,13 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: AppTheme.textSecondary),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: AppTheme.textSecondary),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(6),
@@ -306,10 +316,18 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
 
   Widget _buildTelemetryRow(String title, String status, IconData icon, Color color) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary, fontWeight: FontWeight.w600)),
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary, fontWeight: FontWeight.w600),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 8),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, size: 14, color: color),
             const SizedBox(width: 4),
@@ -414,20 +432,35 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text('#$id', style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary)),
-                      const SizedBox(width: 8),
-                      Text(vehicle, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: AppTheme.textPrimary)),
-                    ],
-                  ),
-                  const SizedBox(height: 2),
-                  Text(facility, style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary)),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text('#$id', style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary)),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            vehicle,
+                            style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: AppTheme.textPrimary),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      facility,
+                      style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
