@@ -99,16 +99,16 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+      builder: (ctx) => Material(
+        color: Colors.white,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        clipBehavior: Clip.antiAlias,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             Center(
               child: Container(
                 width: 40,
@@ -210,8 +210,9 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   // =========================================================================
   // 🧾 DIGITAL BILL / INVOICE PREVIEW BOTTOM SHEET
@@ -230,16 +231,16 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+      builder: (ctx) => Material(
+        color: Colors.white,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        clipBehavior: Clip.antiAlias,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             Center(
               child: Container(
                 width: 40,
@@ -309,8 +310,9 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   // =========================================================================
   // 👥 USER DOSSIER PREVIEW BOTTOM SHEET
@@ -329,16 +331,16 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+      builder: (ctx) => Material(
+        color: Colors.white,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        clipBehavior: Clip.antiAlias,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
             Center(
               child: Container(
                 width: 40,
@@ -394,8 +396,9 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildMetricBox(String label, String value, Color color) {
     return Expanded(
@@ -682,59 +685,64 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
             final total = s['total_slots'] ?? 10;
             final imageUrl = ApiService.formatImageUrl(s['image']?.toString());
 
-            return InkWell(
-              onTap: () => _showSpacePreview(s),
-              borderRadius: BorderRadius.circular(16),
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppTheme.border),
-                ),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        imageUrl,
-                        width: 56,
-                        height: 56,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          width: 56,
-                          height: 56,
-                          color: AppTheme.surfaceLight,
-                          child: const Icon(Icons.local_parking_rounded, color: AppTheme.textSecondary),
+            return Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppTheme.border),
+              ),
+              child: Material(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                clipBehavior: Clip.antiAlias,
+                child: InkWell(
+                  onTap: () => _showSpacePreview(s),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            imageUrl,
+                            width: 56,
+                            height: 56,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => Container(
+                              width: 56,
+                              height: 56,
+                              color: AppTheme.surfaceLight,
+                              child: const Icon(Icons.local_parking_rounded, color: AppTheme.textSecondary),
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppTheme.textPrimary)),
+                              const SizedBox(height: 2),
+                              Text(address, style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary), maxLines: 1, overflow: TextOverflow.ellipsis),
+                              const SizedBox(height: 4),
+                              Text('$available / $total Free • ₹$tariff/hr', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.primary)),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.edit_outlined, color: AppTheme.primary, size: 20),
+                          tooltip: 'Edit Facility',
+                          onPressed: () async {
+                            final updated = await Navigator.push<bool>(
+                              context,
+                              MaterialPageRoute(builder: (_) => AddSpaceScreen(spaceToEdit: s)),
+                            );
+                            if (updated == true) _fetchAdminData();
+                          },
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppTheme.textPrimary)),
-                          const SizedBox(height: 2),
-                          Text(address, style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary), maxLines: 1, overflow: TextOverflow.ellipsis),
-                          const SizedBox(height: 4),
-                          Text('$available / $total Free • ₹$tariff/hr', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.primary)),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.edit_outlined, color: AppTheme.primary, size: 20),
-                      tooltip: 'Edit Facility',
-                      onPressed: () async {
-                        final updated = await Navigator.push<bool>(
-                          context,
-                          MaterialPageRoute(builder: (_) => AddSpaceScreen(spaceToEdit: s)),
-                        );
-                        if (updated == true) _fetchAdminData();
-                      },
-                    ),
-                  ],
+                  ),
                 ),
               ),
             );
@@ -756,72 +764,77 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
         final price = b['total_price'] ?? 40;
         final status = b['status'] ?? 'active';
 
-        return InkWell(
-          onTap: () => _showBookingPreview(b),
-          borderRadius: BorderRadius.circular(16),
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.border),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+        return Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppTheme.border),
+          ),
+          child: Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: () => _showBookingPreview(b),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('#$id', style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary)),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              vehicle,
-                              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: AppTheme.textPrimary),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                          Row(
+                            children: [
+                              Text('#$id', style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary)),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  vehicle,
+                                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: AppTheme.textPrimary),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            facility,
+                            style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
-                      const SizedBox(height: 2),
-                      Text(
-                        facility,
-                        style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('₹$price', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14, color: AppTheme.textPrimary)),
-                    const SizedBox(height: 2),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: status == 'active' ? AppTheme.accent.withValues(alpha: 0.12) : AppTheme.surfaceLight,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        status.toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w800,
-                          color: status == 'active' ? AppTheme.accent : AppTheme.textSecondary,
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('₹$price', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14, color: AppTheme.textPrimary)),
+                        const SizedBox(height: 2),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: status == 'active' ? AppTheme.accent.withValues(alpha: 0.12) : AppTheme.surfaceLight,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            status.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w800,
+                              color: status == 'active' ? AppTheme.accent : AppTheme.textSecondary,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         );
@@ -844,84 +857,89 @@ class _AdminConsoleScreenState extends State<AdminConsoleScreen> {
         final bookingsCount = u['total_bookings'] ?? 1;
         final totalSpend = u['total_spent'] ?? 120;
 
-        return InkWell(
-          onTap: () => _showUserPreview(u),
-          borderRadius: BorderRadius.circular(16),
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.border),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+        return Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppTheme.border),
+          ),
+          child: Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: () => _showUserPreview(u),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      radius: 18,
-                      backgroundColor: AppTheme.primary.withValues(alpha: 0.12),
-                      child: Text(name[0].toUpperCase(), style: const TextStyle(color: AppTheme.primary, fontWeight: FontWeight.bold)),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppTheme.textPrimary)),
-                          Text(email, style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary), maxLines: 1, overflow: TextOverflow.ellipsis),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: role == 'OWNER' || role == 'ADMIN'
-                            ? AppTheme.warning.withValues(alpha: 0.15)
-                            : AppTheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        role,
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w800,
-                          color: role == 'OWNER' || role == 'ADMIN' ? AppTheme.warning : AppTheme.primary,
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 18,
+                          backgroundColor: AppTheme.primary.withValues(alpha: 0.12),
+                          child: Text(name[0].toUpperCase(), style: const TextStyle(color: AppTheme.primary, fontWeight: FontWeight.bold)),
                         ),
-                      ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(name, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppTheme.textPrimary)),
+                              Text(email, style: const TextStyle(fontSize: 11, color: AppTheme.textSecondary), maxLines: 1, overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: role == 'OWNER' || role == 'ADMIN'
+                                ? AppTheme.warning.withValues(alpha: 0.15)
+                                : AppTheme.primary.withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            role,
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w800,
+                              color: role == 'OWNER' || role == 'ADMIN' ? AppTheme.warning : AppTheme.primary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Divider(height: 1, color: AppTheme.border),
+                    const SizedBox(height: 8),
+                    // Enrolled Details Footer Row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_today_rounded, size: 12, color: AppTheme.textSecondary),
+                            const SizedBox(width: 4),
+                            Text(enrolled, style: const TextStyle(fontSize: 10, color: AppTheme.textSecondary)),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.phone_rounded, size: 12, color: AppTheme.textSecondary),
+                            const SizedBox(width: 4),
+                            Text(phone, style: const TextStyle(fontSize: 10, color: AppTheme.textSecondary)),
+                          ],
+                        ),
+                        Text(
+                          '$bookingsCount trips • ₹$totalSpend',
+                          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.accent),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-                const Divider(height: 1, color: AppTheme.border),
-                const SizedBox(height: 8),
-                // Enrolled Details Footer Row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.calendar_today_rounded, size: 12, color: AppTheme.textSecondary),
-                        const SizedBox(width: 4),
-                        Text(enrolled, style: const TextStyle(fontSize: 10, color: AppTheme.textSecondary)),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.phone_rounded, size: 12, color: AppTheme.textSecondary),
-                        const SizedBox(width: 4),
-                        Text(phone, style: const TextStyle(fontSize: 10, color: AppTheme.textSecondary)),
-                      ],
-                    ),
-                    Text(
-                      '$bookingsCount trips • ₹$totalSpend',
-                      style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.accent),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
         );
@@ -991,16 +1009,16 @@ class _GlobalSearchSheetState extends State<_GlobalSearchSheet> {
 
     final totalMatches = matchedSpaces.length + matchedBookings.length + matchedUsers.length;
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.85,
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+    return Material(
+      color: Colors.white,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+      clipBehavior: Clip.antiAlias,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.85,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           Center(
             child: Container(
               width: 40,
@@ -1113,8 +1131,9 @@ class _GlobalSearchSheetState extends State<_GlobalSearchSheet> {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildSectionHeader(String title, IconData icon) {
     return Padding(
